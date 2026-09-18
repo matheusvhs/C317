@@ -105,73 +105,68 @@ def rodape(p, largura, y, pagina):
 
 
 # ---------------------------------------------------------------- PAGINA 1
-P1_W, P1_H = 1920, 1290
+P1_W, P1_H = 1920, 1160
 p = "uc"
 cabecalho(p, P1_W, "", "Diagrama de Casos de Uso (UML) &#183; Milestone III &#8212; Relat&#243;rio de Desenho")
 
 # fronteira do sistema
-cell("uc_sys", "", f"rounded=1;arcSize=4;html=1;fillColor=#FFFFFF;strokeColor=#C3CAD6;strokeWidth=2;", 300, 180, 1320, 750)
+cell("uc_sys", "", "rounded=1;arcSize=4;html=1;fillColor=#FFFFFF;strokeColor=#C3CAD6;strokeWidth=2;", 300, 180, 1320, 620)
 texto("uc_sys_t", "Plataforma Web do Observat&#243;rio do Turismo", 322, 194, 700, 24, 14, TXT, bold=True)
-texto("uc_sys_s", "front-end p&#250;blico + painel administrativo + API REST", 322, 216, 700, 18, 10.5, TXT2)
+texto("uc_sys_s", "escopo do prot&#243;tipo da C317 &#8212; 7 casos de uso de ator + 2 inclu&#237;dos", 322, 216, 700, 18, 10.5, TXT2)
 
 # caixas de agrupamento
-cell("uc_boxA", "", f"rounded=1;arcSize=6;html=1;fillColor=#F5F9FE;strokeColor=#BBD3F0;strokeWidth=1;", 330, 250, 500, 450)
+cell("uc_boxA", "", "rounded=1;arcSize=6;html=1;fillColor=#F5F9FE;strokeColor=#BBD3F0;strokeWidth=1;", 330, 250, 500, 250)
 rotulo("uc_boxA_t", "PORTAL P&#218;BLICO &#183; ACESSO AN&#212;NIMO", 346, 262, 460)
 
-cell("uc_boxB", "", f"rounded=1;arcSize=6;html=1;fillColor=#F8F6FE;strokeColor=#CFC6F4;strokeWidth=1;", 870, 250, 720, 610)
+cell("uc_boxB", "", "rounded=1;arcSize=6;html=1;fillColor=#F8F6FE;strokeColor=#CFC6F4;strokeWidth=1;", 870, 250, 720, 520)
 rotulo("uc_boxB_t", "PAINEL ADMINISTRATIVO &#183; REQUER AUTENTICA&#199;&#195;O (JWT)", 886, 262, 680)
 
-cell("uc_boxC", "", f"rounded=1;arcSize=6;html=1;fillColor=#FDF4FB;strokeColor=#EFC2E9;strokeWidth=1;dashed=1;dashPattern=8 4;", 330, 730, 500, 170)
-rotulo("uc_boxC_t", "FASE 2 &#183; COLETA AUT&#212;NOMA (DESEJ&#193;VEL)", 346, 742, 460)
+cell("uc_boxC", "", f"rounded=1;arcSize=6;html=1;fillColor=#FDF4FB;strokeColor={MAGENTA};strokeWidth=1;dashed=1;dashPattern=8 4;", 330, 540, 500, 200)
+rotulo("uc_boxC_t", "FORA DO ESCOPO DO PROT&#211;TIPO &#183; EVOLU&#199;&#195;O FUTURA", 350, 556, 460)
+texto("uc_boxC_c", '<div style="line-height:1.9">&#183; Coleta aut&#244;noma pelos estabelecimentos (formul&#225;rio com token)<br/>'
+                  '&#183; Valida&#231;&#227;o das submiss&#245;es pela SMCELT<br/>'
+                  '&#183; Exporta&#231;&#227;o dos dados do gr&#225;fico em CSV/JSON<br/>'
+                  '&#183; Painel Cadastur/FNRH e Invent&#225;rio Tur&#237;stico</div>', 350, 582, 470, 140, 10.5, TXT2)
 
 UC_PUB = f"ellipse;whiteSpace=wrap;html=1;fillColor=#E8F1FD;strokeColor={AZUL};strokeWidth=1.5;fontSize=11.5;fontColor=#10305E;{FONTE}"
 UC_ADM = f"ellipse;whiteSpace=wrap;html=1;fillColor=#EFEAFB;strokeColor={ROXO};strokeWidth=1.5;fontSize=11.5;fontColor=#332178;{FONTE}"
 UC_INC = f"ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor={ROXO};strokeWidth=1.5;dashed=1;dashPattern=6 4;fontSize=11;fontColor=#332178;{FONTE}"
-UC_F2 = f"ellipse;whiteSpace=wrap;html=1;fillColor=#FBEAF7;strokeColor={MAGENTA};strokeWidth=1.5;fontSize=11.5;fontColor=#6E2270;{FONTE}"
 
 publicos = [
-    ("uc01", "UC01 &#183; Consultar painel de indicadores"),
-    ("uc02", "UC02 &#183; Filtrar indicadores por per&#237;odo e setor"),
-    ("uc03", "UC03 &#183; Exportar dados do gr&#225;fico (CSV/JSON)"),
-    ("uc04", "UC04 &#183; Consultar relat&#243;rios do Observat&#243;rio"),
-    ("uc05", "UC05 &#183; Baixar relat&#243;rio em PDF"),
+    ("uc01", "UC01 &#183; Consultar painel de indicadores<br/><span style=\"font-size:10px\">com filtros por per&#237;odo e setor</span>"),
+    ("uc02", "UC02 &#183; Consultar e baixar relat&#243;rios do Observat&#243;rio"),
 ]
 for i, (cid, label) in enumerate(publicos):
-    cell(cid, label, UC_PUB, 355, 290 + i * 78, 450, 58)
+    cell(cid, label, UC_PUB, 355, 300 + i * 88, 450, 64)
 
 admins = [
-    ("uc06", "UC06 &#183; Autenticar no painel"),
-    ("uc07", "UC07 &#183; Enviar planilha de dados"),
-    ("uc08", "UC08 &#183; Publicar relat&#243;rio em PDF"),
-    ("uc09", "UC09 &#183; Validar submiss&#245;es dos estabelecimentos"),
-    ("uc10", "UC10 &#183; Publicar dados"),
-    ("uc11", "UC11 &#183; Acompanhar execu&#231;&#245;es do pipeline"),
+    ("uc03", "UC03 &#183; Autenticar no painel"),
+    ("uc04", "UC04 &#183; Enviar planilha de dados"),
+    ("uc05", "UC05 &#183; Publicar relat&#243;rio em PDF"),
+    ("uc06", "UC06 &#183; Publicar dados"),
+    ("uc07", "UC07 &#183; Acompanhar execu&#231;&#245;es do pipeline"),
 ]
 for i, (cid, label) in enumerate(admins):
-    est = UC_F2 if cid == "uc09" else UC_ADM
-    cell(cid, label, est, 1250, 300 + i * 88, 310, 58)
+    cell(cid, label, UC_ADM, 1250, 300 + i * 88, 310, 64)
 
-cell("uc12", "UC12 &#183; Validar schema e regras de neg&#243;cio", UC_INC, 900, 388, 260, 58)
-cell("uc13", "UC13 &#183; Registrar trilha de auditoria", UC_INC, 900, 564, 260, 58)
-cell("uc14", "UC14 &#183; Enviar dados de ocupa&#231;&#227;o do m&#234;s", UC_F2, 355, 790, 450, 58)
-texto("uc_boxC_n", "a submiss&#227;o entra na fila de valida&#231;&#227;o da SMCELT (UC09) &#8212; nunca publica direto", 355, 856, 450, 18, 10, TXT2, align="center")
+cell("uc08", "UC08 &#183; Validar schema e regras de neg&#243;cio", UC_INC, 900, 388, 260, 64)
+cell("uc09", "UC09 &#183; Registrar trilha de auditoria", UC_INC, 900, 520, 260, 64)
 
 # atores
 ATOR = f"shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeWidth=2;fontSize=11.5;{FONTE}"
 cell("uc_a1", '<b>Visitante do portal</b><br/><span style="font-size:10px;color:#5A6470">cidad&#227;o &#183; turista<br/>empreendedor &#183; pesquisador</span>',
-     ATOR + f"strokeColor={AZUL};fontColor={TXT};", 150, 430, 46, 70)
+     ATOR + f"strokeColor={AZUL};fontColor={TXT};", 150, 340, 46, 70)
 cell("uc_a2", '<b>Gestor SMCELT</b><br/><span style="font-size:10px;color:#5A6470">equipe da Secretaria<br/>(usu&#225;rio autenticado)</span>',
-     ATOR + f"strokeColor={ROXO};fontColor={TXT};", 1700, 330, 46, 70)
-cell("uc_a3", '<b>Estabelecimento</b><br/><span style="font-size:10px;color:#5A6470">hot&#233;is e pousadas<br/>(fase 2)</span>',
-     ATOR + f"strokeColor={MAGENTA};fontColor={TXT};", 150, 780, 46, 70)
-cell("uc_a4", '<div style="line-height:1.5"><span style="font-size:10px;color:#5A6470">&#171;sistema&#187;</span><br/><b>Pipeline anal&#237;tico</b><br/>'
+     ATOR + f"strokeColor={ROXO};fontColor={TXT};", 1700, 400, 46, 70)
+cell("uc_a3", '<div style="line-height:1.5"><span style="font-size:10px;color:#5A6470">&#171;sistema&#187;</span><br/><b>Pipeline anal&#237;tico</b><br/>'
               '<span style="font-size:10px;color:#5A6470">GitHub Actions + dbt<br/>publisher &#8594; serving</span></div>',
      f"rounded=1;arcSize=10;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor={BORDA};strokeWidth=1;shadow=1;fontSize=12;fontColor={TXT};{FONTE}",
-     1250, 960, 320, 90)
+     1250, 830, 320, 90)
 
 ASSOC = f"edgeStyle=none;html=1;endArrow=none;strokeColor={TXT2};strokeWidth=1.5;fontSize=10;fontColor={TXT};{FONTE}labelBackgroundColor=#FFFFFF;"
 INC = (f"edgeStyle=none;html=1;endArrow=open;endSize=8;dashed=1;dashPattern=6 4;strokeColor={ROXO};strokeWidth=1.5;"
        f"fontSize=10;fontColor={ROXO};{FONTE}labelBackgroundColor=#FFFFFF;")
+ORTO = ASSOC.replace("edgeStyle=none", "edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto")
 
 n = 0
 for cid, _ in publicos:
@@ -181,22 +176,19 @@ for cid, _ in admins:
     n += 1
     edge(f"uc_e{n}", "", ASSOC + "exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;", "uc_a2", cid)
 n += 1
-edge(f"uc_e{n}", "", ASSOC + "exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;", "uc_a3", "uc14")
-ORTO = ASSOC.replace("edgeStyle=none", "edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto")
-n += 1
 edge(f"uc_e{n}", "dispara o pipeline (workflow_dispatch)",
      ORTO + "exitX=0;exitY=0.8;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;",
-     "uc10", "uc_a4", points=[(1210, 698), (1210, 1005)], off=(0.4, 0, 0))
+     "uc06", "uc_a3", points=[(1210, 615), (1210, 875)], off=(0.55, 0, 0))
 n += 1
 edge(f"uc_e{n}", "status dos runs",
-     ORTO + "exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;", "uc_a4", "uc11")
+     ORTO + "exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;", "uc_a3", "uc07")
 
-edge("uc_i1", "&#171;include&#187;", INC + "exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;", "uc07", "uc12")
-edge("uc_i2", "&#171;include&#187;", INC + "exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;", "uc08", "uc13", off=(-0.2, 0, -6))
-edge("uc_i3", "&#171;include&#187;", INC + "exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.8;entryDx=0;entryDy=0;", "uc10", "uc13", off=(-0.2, 0, 6))
+edge("uc_i1", "&#171;include&#187;", INC + "exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;", "uc04", "uc08")
+edge("uc_i2", "&#171;include&#187;", INC + "exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;", "uc05", "uc09", off=(-0.2, 0, -6))
+edge("uc_i3", "&#171;include&#187;", INC + "exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.8;entryDx=0;entryDy=0;", "uc06", "uc09", off=(-0.2, 0, 6))
 
 # legenda
-LEG_Y = 1090
+LEG_Y = 960
 rotulo("uc_leg", "LEGENDA", 300, LEG_Y, 200)
 cell("uc_leg1", "", f"strokeColor={TXT2};strokeWidth=2;", 300, LEG_Y + 34, 34, 1)
 texto("uc_leg1t", "associa&#231;&#227;o ator &#8212; caso de uso", 344, LEG_Y + 25, 230, 20, 10.5)
@@ -206,14 +198,15 @@ cell("uc_leg3", "", f"ellipse;fillColor=#E8F1FD;strokeColor={AZUL};strokeWidth=1
 texto("uc_leg3t", "caso de uso p&#250;blico", 974, LEG_Y + 25, 150, 20, 10.5)
 cell("uc_leg4", "", f"ellipse;fillColor=#EFEAFB;strokeColor={ROXO};strokeWidth=1.5;", 1140, LEG_Y + 26, 34, 16)
 texto("uc_leg4t", "caso de uso administrativo", 1184, LEG_Y + 25, 180, 20, 10.5)
-cell("uc_leg5", "", f"ellipse;fillColor=#FBEAF7;strokeColor={MAGENTA};strokeWidth=1.5;dashed=0;", 1380, LEG_Y + 26, 34, 16)
-texto("uc_leg5t", "escopo desej&#225;vel (fase 2)", 1424, LEG_Y + 25, 180, 20, 10.5)
+cell("uc_leg5", "", f"strokeColor={MAGENTA};strokeWidth=2;dashed=1;dashPattern=8 4;", 1380, LEG_Y + 34, 34, 1)
+texto("uc_leg5t", "fora do escopo do prot&#243;tipo", 1424, LEG_Y + 25, 200, 20, 10.5)
 
-texto("uc_nota", '<div style="line-height:1.6"><b>Escopo do prot&#243;tipo da C317:</b> UC01&#8211;UC08 e UC10&#8211;UC13 s&#227;o essenciais e entram nos milestones 4&#8211;6. '
-                 'UC09 e UC14 (fase 2) s&#243; entram se houver folga de cronograma. Todo caso de uso do painel exige UC06 (JWT); '
-                 'a consulta p&#250;blica &#233; an&#244;nima.</div>', 300, LEG_Y + 58, 1320, 40, 11, TXT2)
+texto("uc_nota", '<div style="line-height:1.6"><b>Escopo do prot&#243;tipo da C317:</b> nove casos de uso, todos implementados nos milestones 4&#8211;6 &#8212; '
+                 'escopo pequeno por decis&#227;o, para caber no semestre com folga. Todo caso de uso do painel exige UC03 (sess&#227;o JWT v&#225;lida); '
+                 'a consulta p&#250;blica &#233; an&#244;nima. O que ficou de fora est&#225; registrado como evolu&#231;&#227;o futura, sem compromisso de entrega no semestre.</div>',
+      300, LEG_Y + 58, 1320, 40, 11, TXT2)
 
-rodape(p, P1_W, 1210, "p&#225;gina 1 de 2 &#183; item 2 do relat&#243;rio")
+rodape(p, P1_W, 1080, "p&#225;gina 1 de 2 &#183; item 2 do relat&#243;rio")
 
 pag1 = "".join(cells)
 cells = []
@@ -312,7 +305,7 @@ tabela("er_auditoria", 470, 620, 320, "app.auditoria", "trilha de quem publicou 
     col("detalhe", "jsonb"),
     col("ocorrido_em", "timestamptz"),
 ])
-tabela("er_submissao", 850, 620, 320, "app.submissao", "coleta aut&#244;noma &#183; fase 2", MAGENTA, [
+tabela("er_submissao", 850, 620, 320, "app.submissao", "coleta aut&#244;noma &#183; evolu&#231;&#227;o futura", MAGENTA, [
     col("id", "bigserial", "PK"),
     col("estabelecimento_id", "bigint", "FK"),
     col("periodo", "date"),
@@ -321,7 +314,7 @@ tabela("er_submissao", 850, 620, 320, "app.submissao", "coleta aut&#244;noma &#1
     col("recebido_em", "timestamptz"),
     col("validado_por", "bigint", "FK"),
 ], fase2=True)
-tabela("er_estab", 1230, 620, 320, "app.estabelecimento", "hot&#233;is e pousadas &#183; fase 2", MAGENTA, [
+tabela("er_estab", 1230, 620, 320, "app.estabelecimento", "hot&#233;is e pousadas &#183; evolu&#231;&#227;o futura", MAGENTA, [
     col("id", "bigserial", "PK"),
     col("cnpj", "text", "UQ"),
     col("nome_fantasia", "text"),
@@ -416,7 +409,7 @@ texto("er_leg3t", "materializa&#231;&#227;o feita pelo publisher (n&#227;o &#233
 texto("er_leg4t", '<span style="font-weight:700;color:#0A4AAD">PK</span> chave prim&#225;ria &#160;&#160; '
                   '<span style="font-weight:700;color:#C6A700">FK</span> chave estrangeira &#160;&#160; '
                   '<span style="font-weight:700;color:#2E9E6B">UQ</span> &#237;ndice &#250;nico &#160;&#160; '
-                  '<span style="color:#C750D6;font-weight:700">tabela tracejada</span> = fase 2 (desej&#225;vel)', 1040, L2 + 25, 900, 20, 10.5)
+                  '<span style="color:#C750D6;font-weight:700">tabela tracejada</span> = fora do escopo do prot&#243;tipo', 1040, L2 + 25, 900, 20, 10.5)
 texto("er_nota2", '<div style="line-height:1.6"><b>Por que dois schemas:</b> <b>app</b> guarda o estado transacional e nunca &#233; recalculado; '
                   '<b>serving</b> pode ser apagado e reconstru&#237;do a qualquer momento a partir do pipeline. '
                   'A API l&#234; <b>serving</b> nas rotas p&#250;blicas e escreve em <b>app</b> nas rotas administrativas &#8212; se o pipeline falhar, o site continua servindo a &#250;ltima vers&#227;o publicada.</div>',

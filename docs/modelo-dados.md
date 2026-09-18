@@ -22,8 +22,8 @@ sempre a última versão publicada e a consulta pública nunca depende do proces
 | `execucao_pipeline` | run do GitHub Actions disparado pela API | essencial |
 | `relatorio` | relatórios em PDF publicados pelo Observatório | essencial |
 | `auditoria` | trilha de quem publicou o quê e quando | essencial |
-| `estabelecimento` | hotéis e pousadas com token de coleta | fase 2 |
-| `submissao` | dados informados pelo estabelecimento, aguardando validação | fase 2 |
+| `estabelecimento` | hotéis e pousadas com token de coleta | evolução futura |
+| `submissao` | dados informados pelo estabelecimento, aguardando validação | evolução futura |
 
 ## Schema `serving` (espelho do gold)
 
@@ -106,7 +106,7 @@ CREATE TABLE app.auditoria (
     ocorrido_em timestamptz NOT NULL DEFAULT now()
 );
 
--- fase 2 -------------------------------------------------------------------
+-- evolução futura (fora do escopo do protótipo) --------------------------
 CREATE TABLE app.estabelecimento (
     id            bigserial PRIMARY KEY,
     cnpj          text    NOT NULL UNIQUE,
@@ -186,5 +186,5 @@ CREATE INDEX ON app.upload (status, enviado_em DESC);
 - `app.execucao_pipeline.versao_publicada` aponta para `serving.versao.versao`. **Não é uma FK** —
   os dois schemas têm ciclos de vida independentes e `serving` é descartável.
 - `serving.relatorio` é espelho de `app.relatorio`, materializado pelo publisher.
-- **LGPD:** nenhum dado pessoal de hóspede entra no modelo. Da fase 2 só chega o agregado do
+- **LGPD:** nenhum dado pessoal de hóspede entra no modelo. Da coleta autônoma só chegaria o agregado do
   estabelecimento; o contato do responsável fica restrito ao schema `app`.

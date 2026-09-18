@@ -3,54 +3,73 @@
 Diagrama: [`docs/diagramas/04_casos_de_uso.drawio.png`](diagramas/04_casos_de_uso.drawio.png)
 (página 1 de `Casos_de_Uso_e_Modelo_de_Dados.drawio`).
 
-O escopo foi mantido deliberadamente pequeno, como pede o enunciado: **doze casos de uso
-essenciais** (UC01–UC08 e UC10–UC13), que cabem nos milestones 4–6, e **dois desejáveis**
-(UC09 e UC14) que só entram se sobrar cronograma.
+O enunciado da disciplina pede escopo pequeno, para o time conseguir cumprir o planejado com
+tranquilidade. São **nove casos de uso**: sete de ator e dois incluídos. Todos entram nos
+milestones 4–6 — não existe caso de uso "desejável" no diagrama, porque item que talvez não seja
+entregue não é escopo, é intenção.
 
 ## Atores
 
 | Ator | Tipo | Descrição |
 |---|---|---|
 | **Visitante do portal** | primário, anônimo | Cidadão, turista, empreendedor, gestor público ou pesquisador. Consulta sem login. |
-| **Gestor SMCELT** | primário, autenticado | Equipe da Secretaria. Único perfil com credencial (JWT). Publica e valida dados. |
-| **Estabelecimento** | primário, fase 2 | Hotel ou pousada que informa a própria ocupação por token, sem login. |
+| **Gestor SMCELT** | primário, autenticado | Equipe da Secretaria. Único perfil com credencial (JWT). Publica e acompanha. |
 | **Pipeline analítico** | secundário (sistema) | GitHub Actions + dbt/DuckDB + publisher. Executa o processamento e devolve o status do run. |
 
 ## Catálogo de casos de uso
 
-| # | Caso de uso | Ator | Escopo |
-|---|---|---|---|
-| UC01 | Consultar painel de indicadores | Visitante | essencial |
-| UC02 | Filtrar indicadores por período e setor | Visitante | essencial |
-| UC03 | Exportar dados do gráfico (CSV/JSON) | Visitante | essencial |
-| UC04 | Consultar relatórios do Observatório | Visitante | essencial |
-| UC05 | Baixar relatório em PDF | Visitante | essencial |
-| UC06 | Autenticar no painel | Gestor SMCELT | essencial |
-| UC07 | Enviar planilha de dados | Gestor SMCELT | essencial |
-| UC08 | Publicar relatório em PDF | Gestor SMCELT | essencial |
-| UC09 | Validar submissões dos estabelecimentos | Gestor SMCELT | **fase 2** |
-| UC10 | Publicar dados (dispara o pipeline) | Gestor SMCELT · Pipeline | essencial |
-| UC11 | Acompanhar execuções do pipeline | Gestor SMCELT · Pipeline | essencial |
-| UC12 | Validar schema e regras de negócio | — (`«include»` de UC07) | essencial |
-| UC13 | Registrar trilha de auditoria | — (`«include»` de UC08 e UC10) | essencial |
-| UC14 | Enviar dados de ocupação do mês | Estabelecimento | **fase 2** |
+| # | Caso de uso | Ator |
+|---|---|---|
+| UC01 | Consultar painel de indicadores (com filtros por período e setor) | Visitante |
+| UC02 | Consultar e baixar relatórios do Observatório | Visitante |
+| UC03 | Autenticar no painel | Gestor SMCELT |
+| UC04 | Enviar planilha de dados | Gestor SMCELT |
+| UC05 | Publicar relatório em PDF | Gestor SMCELT |
+| UC06 | Publicar dados (dispara o pipeline) | Gestor SMCELT · Pipeline analítico |
+| UC07 | Acompanhar execuções do pipeline | Gestor SMCELT · Pipeline analítico |
+| UC08 | Validar schema e regras de negócio | — (`«include»` de UC04) |
+| UC09 | Registrar trilha de auditoria | — (`«include»` de UC05 e UC06) |
 
 Relações do diagrama:
 
-- `UC07 «include» UC12` — toda planilha enviada passa pela validação de schema e regras.
-- `UC08 «include» UC13` e `UC10 «include» UC13` — toda publicação grava quem publicou, quando e
-  a partir de qual arquivo. É o que garante o histórico entre mudanças de gestão.
-- Todos os casos de uso do painel exigem **UC06** (sessão JWT válida); a consulta pública é anônima.
+- `UC04 «include» UC08` — toda planilha enviada passa pela validação de schema e regras.
+- `UC05 «include» UC09` e `UC06 «include» UC09` — toda publicação grava quem publicou, quando e a
+  partir de qual arquivo. É o que garante o histórico entre mudanças de gestão.
+- Todos os casos de uso do painel exigem **UC03** (sessão JWT válida); a consulta pública é anônima.
+
+### Cobertura das funcionalidades essenciais do SRS
+
+| Funcionalidade essencial | Casos de uso |
+|---|---|
+| Dashboard visual com filtros por período e setor | UC01 |
+| Acesso público aos relatórios e pesquisas | UC02, UC05 |
+| Publicação organizada dos indicadores | UC04, UC06, UC08 |
+| Painel administrativo para atualização contínua | UC03, UC06, UC07 |
+| Continuidade entre gestões (histórico auditável) | UC09 |
+
+## Fora do escopo do protótipo — evolução futura
+
+Registrado no diagrama como quadro tracejado, **sem ator associado e sem compromisso de entrega no
+semestre**:
+
+- Coleta autônoma pelos estabelecimentos (formulário com token)
+- Validação das submissões pela SMCELT
+- Exportação dos dados do gráfico em CSV/JSON
+- Painel Cadastur/FNRH e Inventário Turístico
+
+O modelo de dados já prevê as tabelas `app.estabelecimento` e `app.submissao` para a coleta
+autônoma — desenhar não custa cronograma, implementar custa. Elas aparecem tracejadas no ER pelo
+mesmo motivo.
 
 ## Descrição expandida dos dois casos de uso críticos
 
-### UC10 — Publicar dados
+### UC06 — Publicar dados
 
 | Campo | Conteúdo |
 |---|---|
 | **Ator primário** | Gestor SMCELT |
 | **Ator secundário** | Pipeline analítico (GitHub Actions + dbt) |
-| **Pré-condições** | Usuário autenticado (UC06); existe um upload em `app.upload` com status `em_revisao` e validação de schema aprovada (UC07 + UC12). |
+| **Pré-condições** | Usuário autenticado (UC03); existe um upload em `app.upload` com status `em_revisao` e validação de schema aprovada (UC04 + UC08). |
 | **Pós-condições** | `serving.*` materializado em transação com a nova versão; `serving.versao` atualizado; `app.upload.status = publicado`; evento gravado em `app.auditoria`. |
 
 **Fluxo principal**
@@ -62,7 +81,7 @@ Relações do diagrama:
 4. O pipeline executa bronze → silver → gold e roda os `dbt tests`.
 5. Com os testes verdes, o publisher materializa `serving.*` em transação única e incrementa
    `serving.versao`.
-6. O sistema registra a auditoria (UC13) e exibe "publicado" no painel.
+6. O sistema registra a auditoria (UC09) e exibe "publicado" no painel.
 7. O portal público passa a servir a nova versão.
 
 **Fluxos alternativos**
@@ -73,7 +92,7 @@ Relações do diagrama:
   anterior e o site continua no ar.
 - **A3 — pipeline indisponível:** o upload fica `em_revisao` e é reprocessado no próximo ciclo de cron.
 
-### UC02 — Filtrar indicadores por período e setor
+### UC01 — Consultar painel de indicadores
 
 | Campo | Conteúdo |
 |---|---|
@@ -83,11 +102,12 @@ Relações do diagrama:
 
 **Fluxo principal**
 
-1. O visitante escolhe um indicador, um intervalo de períodos e, opcionalmente, um setor.
-2. O front-end chama `GET /api/v1/series?indicador=&de=&ate=&setor=`.
-3. A API lê `serving.serie` (formato longo) e devolve a série filtrada com fonte e data de
+1. O visitante abre o painel e vê os cards com os indicadores mais recentes.
+2. Escolhe um indicador, um intervalo de períodos e, opcionalmente, um setor.
+3. O front-end chama `GET /api/v1/series?indicador=&de=&ate=&setor=`.
+4. A API lê `serving.serie` (formato longo) e devolve a série filtrada com fonte e data de
    atualização.
-4. O gráfico é redesenhado exibindo fonte e "última atualização" (exigência de transparência de
+5. O gráfico é redesenhado exibindo fonte e "última atualização" (exigência de transparência de
    dado público).
 
 **Fluxo alternativo**
@@ -97,4 +117,5 @@ Relações do diagrama:
 
 **Por que este caso de uso importa para a arquitetura:** como `serving.serie` está em formato longo,
 um indicador novo é uma linha em `serving.indicador` + o cálculo no gold — **sem alterar API nem
-front-end**. É o que evita mudança brusca de estrutura depois do M3.
+front-end**. É o que evita mudança brusca de estrutura depois do M3 e o que permite o escopo
+continuar pequeno sem fechar a porta para crescer.

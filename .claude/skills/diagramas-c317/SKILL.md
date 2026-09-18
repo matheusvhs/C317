@@ -39,8 +39,8 @@ Regras que mantêm as páginas coerentes entre si:
 - **Rótulos de seção** em caixa alta, `fontSize=10`, `letter-spacing:1.2px`, cor `#5A6470`.
 - **Rodapé** em toda página: linha `#D8DCE4`, identificação do projeto à esquerda e
   `C317 · HEIComp 2026.2 · <milestone> · página N de M` à direita.
-- **Escopo de fase 2** sempre em magenta `#C750D6` com traço tracejado — deixa explícito na banca
-  o que é essencial e o que é desejável.
+- **Fora do escopo do protótipo** sempre em magenta `#C750D6` com traço tracejado — deixa explícito
+  na banca o que o time se comprometeu a entregar e o que é evolução futura.
 - **Legenda** obrigatória quando a página usa 3+ cores semânticas.
 
 ## Fluxo de trabalho

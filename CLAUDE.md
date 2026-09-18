@@ -64,6 +64,10 @@ docs/milestones/   enunciados e entregas dos milestones
   especificação entregue. Indicador novo é uma linha em `serving.indicador` + o cálculo no gold —
   **sem tocar em back-end nem front-end**. Se uma proposta exige alterar API e front, provavelmente
   há um caminho pela camada de publicação.
+- **Escopo pequeno é requisito da disciplina**, não preguiça: o enunciado pede um escopo reduzido
+  para o time cumprir o planejado com tranquilidade. São **9 casos de uso** (`docs/casos-de-uso.md`)
+  e eles não crescem sem decisão explícita do time. Ideia boa que não cabe no semestre vai para o
+  quadro "evolução futura" do diagrama — desenhar não custa cronograma, implementar custa.
 - **LGPD**: nenhum dado pessoal entra no plano analítico. Dados de FNRH/hóspedes não são ingeridos.
 
 ## Comandos
