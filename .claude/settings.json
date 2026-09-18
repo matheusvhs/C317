@@ -1,0 +1,24 @@
+{
+  "enabledPlugins": {
+    "github@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git show:*)",
+      "Bash(bash docs/setup-check.sh)",
+      "Bash(python3 docs/diagramas/gerar_diagramas.py)",
+      "Bash(drawio --version)",
+      "Bash(drawio -x *)",
+      "Bash(pytest:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)"
+    ]
+  }
+}
