@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node / front-end
+node_modules/
+.next/
+dist/
+build/
+
+# Segredos e configuração local
+.env
+.env.*
+!.env.example
+
+# Claude Code — settings.json é compartilhado; o .local é pessoal de cada pessoa
+.claude/settings.local.json
+
+# dbt + DuckDB (plano analítico)
+data/target/
+data/dbt_packages/
+data/logs/
+*.duckdb
+*.duckdb.wal
