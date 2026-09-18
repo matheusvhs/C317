@@ -24,7 +24,9 @@ histórico se perde entre mudanças de gestão.
 | Documento | Conteúdo |
 |---|---|
 | [`docs/arquitetura.md`](docs/arquitetura.md) | Arquitetura completa: decisão do motor analítico (ADR-001), modelo de dados, contrato da API, governança/LGPD, mapa dos milestones e riscos |
-| [`docs/diagramas/`](docs/diagramas/) | Diagramas em `.drawio` — visão de containers (C4), fluxo de publicação e camada de publicação |
+| [`docs/casos-de-uso.md`](docs/casos-de-uso.md) | Atores, catálogo dos 14 casos de uso e descrição expandida de UC10 (publicar dados) e UC02 (filtrar indicadores) — item 2 do Milestone III |
+| [`docs/modelo-dados.md`](docs/modelo-dados.md) | Estrutura do banco: schemas `app` (OLTP) e `serving` (espelho do gold), DDL PostgreSQL e regras de estado — item 3 do Milestone III |
+| [`docs/diagramas/`](docs/diagramas/) | Diagramas em `.drawio` + exportações `.drawio.png`: [visão de containers](docs/diagramas/01_visao_containers.drawio.png), [fluxo de publicação](docs/diagramas/02_fluxo_publicacao.drawio.png), [camada de publicação/API](docs/diagramas/03_camada_publicacao_api.drawio.png), [casos de uso](docs/diagramas/04_casos_de_uso.drawio.png) e [modelo de dados (ER)](docs/diagramas/05_modelo_dados_er.drawio.png) |
 
 ## Stack
 
